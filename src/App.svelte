@@ -1,4 +1,9 @@
 <script lang="ts">
+  import "./lib/fsm/xstate-inspect";
+  import { useAppMachine } from "./lib/fsm/app-machine";
+
+  const { state, service, send } = useAppMachine();
+
 </script>
 
 <main>
