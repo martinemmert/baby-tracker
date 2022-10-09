@@ -7,7 +7,16 @@ export const appMachine = createMachine({
   id: "app",
   initial: "init",
   states: {
-    init: {}
+    init: {
+      on: {
+        wakeUp: "selectWakeUpMood"
+      }
+    },
+    selectWakeUpMood: {
+      on: {
+        moodSelected: "init"
+      }
+    }
   }
 });
 
