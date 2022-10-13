@@ -2,23 +2,23 @@
 
   import type { TimelineEntry } from "../../store/timeline";
   import DateFormat from "./DateFormat.svelte";
+  import ActivityEmoji from "./ActivityEmoji.svelte";
 
   export let entry: TimelineEntry;
 
-  export let reverse = false;
-
-
 </script>
 
-<li class="flex w-full flex-row items-center justify-evenly text-slate-200" class:flex-row-reverse={reverse}>
-  <div class="w-1/2 grow rounded-xl px-5" class:text-right={!reverse}>{entry.activity}</div>
+<li class="flex mx-4 flex-row items-center justify-start text-slate-200 snap-center rounded-lg bg-amber-100/30">
   <div
-    class="flex items-center justify-center h-10 w-10 grow-0 rounded-full border-2 border-solid border-emerald-200 text-center text-xl">
-    ⏰
+    class="flex h-16 w-16 items-center justify-center rounded-full text-3xl">
+    <ActivityEmoji activity="{entry.activity}" />
   </div>
-  <div class="w-1/2 grow rounded-xl font-bold px-5" class:text-right={reverse}>
-    <DateFormat time="{entry.time}" format="HH:mm" />
+  <div>
+    <p class="font-bold">
+      <DateFormat time="{entry.time}" format="HH:mm" />
+      Uhr
+    </p>
+    <p class="">{entry.activity}</p>
   </div>
 </li>
 
-<style></style>

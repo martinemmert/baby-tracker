@@ -4,7 +4,12 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte(), VitePWA({
+  appType: "spa",
+  plugins: [svelte({
+    compilerOptions: {
+      dev: true
+    }
+  }), VitePWA({
     devOptions: {
       enabled: true
     },
@@ -17,7 +22,7 @@ export default defineConfig({
         {
           "src": "/assets/android-chrome-192x192.png",
           "sizes": "192x192",
-          "type": "image/png",
+          "type": "image/png"
         },
         {
           "src": "/assets/maskable_icon_x512.png",
@@ -31,4 +36,5 @@ export default defineConfig({
       "display": "standalone"
     }
   })]
+
 });

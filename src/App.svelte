@@ -1,24 +1,32 @@
 <script lang="ts">
-  import "./lib/fsm/xstate-inspect";
+  // import "./lib/fsm/xstate-inspect";
   import Clock from "./lib/components/Clock.svelte";
-  import TimelineEntry from "./lib/components/TimelineEntry.svelte";
-  import WakeUpButton from "./lib/components/WakeUpButton.svelte";
-  import { addNewTimelineEntry, timelineEntries } from "./store/timeline.js";
-  import TimelineSpacer from "./lib/components/TimelineSpacer.svelte";
+  import RingMenu from "./lib/components/RingMenu.svelte";
+  import Timeline from "./lib/components/Timeline.svelte";
+  import NavigationBar from "./lib/components/NavigationBar.svelte";
+
+  let backdrop = false;
+
+  function toggleBackdrop(active) {
+    backdrop = active ?? !backdrop;
+  }
+
+
 </script>
 
-<main>
-  <div class="my-12">
-    <Clock />
+<main class="h-full max-h-full overflow-hidden">
+  <div class="flex h-full max-h-full flex-col justify-evenly pb-20">
+    <div class="pt-4 pb-4 bg-slate-800">
+      <Clock />
+    </div>
+    <Timeline />
+    {#if backdrop}
+      <div class="fixed inset-0 bg-slate-800/40 backdrop-blur-md transition-all"></div>
+    {/if}
+    <NavigationBar let:centerX let:centerY>
+      <RingMenu on:open={() => toggleBackdrop(true)} on:close={() => toggleBackdrop(false)}
+                originX={centerX} originY={centerY - 38} />
+    </NavigationBar>
   </div>
-  <div class="flex flex-col items-center">
-    <WakeUpButton on:click={() => addNewTimelineEntry("wake-up")} />
-  </div>
-  <ul class="flex flex-col items-center space-y-3 mt-5">
-    {#each $timelineEntries.reverse() as entry, index}
-      <TimelineSpacer />
-      <TimelineEntry entry={entry} reverse />
-    {/each}
-  </ul>
 
 </main>

@@ -14,7 +14,7 @@
 
   $: clock = `${leftPad(hours)}:${leftPad(minutes)}`;
   $: deg1 = Math.min(360 * ((seconds * 1000 + ms) / 60000), 360);
-  $: deg2 = Math.min(360 * ((seconds * 1000 + ms) / 60000) + 10, 360);
+  $: deg2 = Math.min(360 * ((seconds * 1000 + ms) / 60000) + 30, 360);
 
 
   let frame;
@@ -36,7 +36,7 @@
 </script>
 
 <div
-  class="m-auto flex aspect-square border-8 border-transparent w-40 items-center justify-center rounded-full text-5xl font-bold clock-bg text-slate-50"
+  class="m-auto flex aspect-square border-8 border-transparent w-24 items-center justify-center rounded-full text-5xl clock-bg text-slate-300 pointer-events-none"
   style="{`--deg1: ${deg1}deg; --deg2: ${deg2}deg`}"
 >{clock}</div>
 
@@ -45,7 +45,7 @@
         --deg1: 0deg;
         --deg2: 360deg;
         background: radial-gradient(theme("colors.slate.800"), theme("colors.slate.800")) padding-box, conic-gradient(
-                theme("colors.emerald.300") var(--deg1),
+                theme("colors.indigo.700") var(--deg1),
                 transparent var(--deg2)) border-box;
     }
 </style>
