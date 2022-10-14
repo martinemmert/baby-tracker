@@ -1,32 +1,16 @@
-<script lang="ts">
-  // import "./lib/fsm/xstate-inspect";
-  import Clock from "./lib/components/Clock.svelte";
-  import RingMenu from "./lib/components/RingMenu.svelte";
-  import Timeline from "./lib/components/Timeline.svelte";
-  import NavigationBar from "./lib/components/NavigationBar.svelte";
+<script context="module" lang="ts">
 
-  let backdrop = false;
+  import Main from "./lib/routes/Main.svelte";
+  import ChangeDiaper from "./lib/routes/ChangeDiaper.svelte";
 
-  function toggleBackdrop(active) {
-    backdrop = active ?? !backdrop;
-  }
-
-
+  const routes = {
+    "/": Main,
+    "/change-diaper": ChangeDiaper
+  };
 </script>
 
-<main class="h-full max-h-full overflow-hidden">
-  <div class="flex h-full max-h-full flex-col justify-evenly pb-20">
-    <div class="pt-4 pb-4 bg-slate-800">
-      <Clock />
-    </div>
-    <Timeline />
-    {#if backdrop}
-      <div class="fixed inset-0 bg-slate-800/40 backdrop-blur-md transition-all"></div>
-    {/if}
-    <NavigationBar let:centerX let:centerY>
-      <RingMenu on:open={() => toggleBackdrop(true)} on:close={() => toggleBackdrop(false)}
-                originX={centerX} originY={centerY - 38} />
-    </NavigationBar>
-  </div>
+<script lang="ts">
+  import Router from "svelte-spa-router";
+</script>
 
-</main>
+<Router routes="{routes}" />

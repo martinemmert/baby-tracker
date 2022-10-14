@@ -1,9 +1,9 @@
 <script lang="ts">
   import RingMenuButton from "./RingMenuButton.svelte";
   import { spring } from "svelte/motion";
-  import { addNewTimelineEntry } from "../../store/timeline.js";
   import { createEventDispatcher } from "svelte";
   import ActivityEmoji from "./ActivityEmoji.svelte";
+  import { push } from "svelte-spa-router";
 
   export let open = false;
   export let diameter = 120;
@@ -14,12 +14,29 @@
   export let items = [
     {
       value: "breastfeeding",
+      route: "/feed-with-breasts",
       label: "🤱"
     },
-    { value: "bottle", label: "🍼" },
-    { value: "diaper", label: "💩" },
-    { value: "asleep", label: "😴" },
-    { value: "wakeup", label: "⏰" }
+    {
+      value: "bottle",
+      route: "/feed-with-bottle",
+      label: "🍼"
+    },
+    {
+      value: "diaper",
+      route: "/change-diaper",
+      label: "💩"
+    },
+    {
+      value: "asleep",
+      route: "/fell-asleep",
+      label: "😴"
+    },
+    {
+      value: "wakeup",
+      route: "/woke-up",
+      label: "⏰"
+    }
   ];
 
   const stiffness = 0.25;
@@ -97,7 +114,7 @@
         --scale={scale}
         on:click={() => {
           toggleMenu();
-          addNewTimelineEntry(item.value)
+          push(item.route)
         }}
       >
         <ActivityEmoji activity="{item.value}" />
